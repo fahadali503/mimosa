@@ -4,7 +4,7 @@ import { MdReorder } from 'react-icons/md'
 import { BiShoppingBag, BiSearch, } from 'react-icons/bi'
 import { useWindowScroll } from 'react-use'
 
-const logo = "https://template.hasthemes.com/mimosa/mimosa/img/logo/1.png"
+export const logo = "https://template.hasthemes.com/mimosa/mimosa/img/logo/1.png"
 export const Nav = () => {
     const scrollRef = useRef<HTMLDivElement>(null);
     const { x, y } = useWindowScroll();
