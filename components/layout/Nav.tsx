@@ -14,7 +14,7 @@ export const Nav = () => {
     }, [x, y])
 
     return (
-        <div ref={scrollRef} className='h-20 w-full fixed top-0 left-0 right-0  font-poppins font-semibold cursor-pointer text-black bg-transparent border' style={{ zIndex: 999, backgroundColor: `${y > 20 ? "#fff" : ""}` }}>
+        <div ref={scrollRef} className='h-20 w-full fixed top-0 left-0 right-0  font-poppins font-semibold cursor-pointer text-black bg-transparent border' style={{ zIndex: 999, backgroundColor: `${y > 20 ? "rgba(255,255,255,0.9)" : y > 600 ? "#fff" : ""}` }}>
             <div className='grid grid-cols-3 px-20 justify-center items-center h-full'>
                 <div>
                     <img src={logo} alt="logo" />
