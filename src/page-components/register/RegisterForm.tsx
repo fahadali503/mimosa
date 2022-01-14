@@ -29,6 +29,7 @@ type Values = {
     address: string;
     state: string;
     postCode: string;
+    companyName: string;
 }
 
 export const RegisterForm = () => {
@@ -40,7 +41,7 @@ export const RegisterForm = () => {
 
     return (
         <div className='shadow mt-10 w-3/4 mx-auto'>
-            <Formik validationSchema={SignupSchema} initialValues={{ firstName: "", lastName: "", country: "Pakistan", email: "", password: "", address: "", state: "", postCode: "" }} onSubmit={onSubmitHandler}>
+            <Formik validationSchema={SignupSchema} initialValues={{ firstName: "", lastName: "", country: "Pakistan", email: "", password: "", address: "", state: "", postCode: "", companyName: "" }} onSubmit={onSubmitHandler}>
                 {
                     ({ values, handleChange, handleBlur, handleSubmit, errors, touched }) => (
                         <form onSubmit={handleSubmit} className="w-1/2 mx-auto px-8 pt-6 pb-8 mb-4 bg-white rounded">
@@ -86,6 +87,23 @@ export const RegisterForm = () => {
                                 </label>
                                 <input
                                     className={`w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border  rounded shadow appearance-none focus:outline-none focus:shadow-outline`}
+                                    type="text"
+                                    placeholder="Email"
+                                    name='companyName'
+                                    value={values.companyName}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                {
+                                    touched.companyName && <p className="text-xs italic text-red-500">{errors.companyName}</p>
+                                }
+                            </div>
+                            <div className="mb-4">
+                                <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="email">
+                                    Email
+                                </label>
+                                <input
+                                    className={`w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border  rounded shadow appearance-none focus:outline-none focus:shadow-outline`}
 
                                     type="email"
                                     placeholder="Email"
@@ -98,6 +116,7 @@ export const RegisterForm = () => {
                                     touched.email && <p className="text-xs italic text-red-500">{errors.email}</p>
                                 }
                             </div>
+
                             <div className="mb-4 md:mr-2 md:mb-0">
                                 <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="password">
                                     Password
