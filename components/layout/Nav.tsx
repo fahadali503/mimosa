@@ -1,20 +1,20 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { MdReorder } from 'react-icons/md'
 import { BiShoppingBag, BiSearch, } from 'react-icons/bi'
-import { useWindowScroll } from 'react-use'
+import { useTimeoutFn, useWindowScroll } from 'react-use'
+import { NavDropdown } from '../../components/dropdown/NavDropdown'
+import { Transition } from '@headlessui/react';
 
 export const logo = "https://template.hasthemes.com/mimosa/mimosa/img/logo/1.png"
 export const Nav = () => {
+    const [showAccountDropdown, setShowAccountDropdown] = useState(false)
     const scrollRef = useRef<HTMLDivElement>(null);
     const { x, y } = useWindowScroll();
 
-    React.useEffect(() => {
-        console.log(x, y);
-    }, [x, y])
 
     return (
-        <div ref={scrollRef} className='h-20 w-full fixed top-0 left-0 right-0  font-poppins font-semibold cursor-pointer text-black bg-transparent border' style={{ zIndex: 999, backgroundColor: `${y > 20 ? "rgba(255,255,255,0.9)" : y > 600 ? "#fff" : ""}` }}>
+        <div ref={scrollRef} className='h-20 w-full fixed top-0 left-0 right-0  font-poppins font-semibold cursor-pointer text-black bg-transparent border z-30' style={{ backgroundColor: `${y > 20 && "rgba(255,255,255,0.9)"}` }}>
             <div className='grid grid-cols-3 px-20 justify-center items-center h-full'>
                 <div>
                     <img src={logo} alt="logo" />
@@ -33,8 +33,21 @@ export const Nav = () => {
                         <div className=' hover:text-red-500'>
                             <BiShoppingBag />
                         </div>
-                        <div className=' hover:text-red-500'>
-                            <MdReorder />
+                        <div className='relative' >
+                            <MdReorder onClick={() => setShowAccountDropdown(!showAccountDropdown)} className='hover:text-red-500' />
+                            {
+                                showAccountDropdown && <Transition show={showAccountDropdown}
+                                    enter="transition ease-out duration-100"
+                                    enterFrom="transform opacity-0 scale-95"
+                                    enterTo="transform opacity-100 scale-100"
+                                    leave="transition ease-in duration-75"
+                                    leaveFrom="transform opacity-100 scale-100"
+                                    leaveTo="transform opacity-0 scale-95"
+                                >
+                                    <NavDropdown />
+                                </Transition>
+
+                            }
                         </div>
                     </div>
                 </div>

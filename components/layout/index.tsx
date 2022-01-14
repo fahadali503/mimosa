@@ -11,7 +11,7 @@ export const Layout: React.FC<ILayoutProps> = ({ pageTitle, children }) => {
     return (
         <>
             <Head><title>{pageTitle}</title></Head>
-            <div className='h-screen relative  z-40'>
+            <div className='h-screen relative '>
                 <Nav />
                 <section className='mt-20'>
                     {children}
