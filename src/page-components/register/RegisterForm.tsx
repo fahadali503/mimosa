@@ -1,6 +1,7 @@
 import React from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup';
+import Link from 'next/link';
 
 
 const SignupSchema = Yup.object().shape({
@@ -17,7 +18,8 @@ const SignupSchema = Yup.object().shape({
     country: Yup.string().required('Required'),
     state: Yup.string().required("Required"),
     address: Yup.string().required('Required'),
-    postCode: Yup.string().required('Required')
+    postCode: Yup.string().required('Required'),
+    companyName: Yup.string().min(6, "Too Short!").required("Company Name is Required.")
 });
 
 type Values = {
@@ -32,19 +34,19 @@ type Values = {
     companyName: string;
 }
 
-export const RegisterForm = () => {
+export const RegisterForm = ({ registerUserOnServer }: { registerUserOnServer: (values: Values) => void }) => {
 
 
     const onSubmitHandler = (values: Values) => {
-        console.log(values);
+        registerUserOnServer(values);
     }
 
     return (
-        <div className='shadow mt-10 w-3/4 mx-auto'>
+        <div className='shadow-2xl rounded-lg border border-t-gray-300 mt-10 w-3/4 mx-auto'>
             <Formik validationSchema={SignupSchema} initialValues={{ firstName: "", lastName: "", country: "Pakistan", email: "", password: "", address: "", state: "", postCode: "", companyName: "" }} onSubmit={onSubmitHandler}>
                 {
-                    ({ values, handleChange, handleBlur, handleSubmit, errors, touched }) => (
-                        <form onSubmit={handleSubmit} className="w-1/2 mx-auto px-8 pt-6 pb-8 mb-4 bg-white rounded">
+                    ({ values, handleChange, handleBlur, handleSubmit, errors, touched, isSubmitting, }) => (
+                        <form onSubmit={handleSubmit} className="w-1/2 mx-auto px-8 pt-12 pb-8 mb-4 bg-white rounded">
                             <div className="mb-4 md:flex md:justify-between">
                                 <div className="mb-4 md:mr-2 md:mb-0">
                                     <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="firstName">
@@ -83,12 +85,12 @@ export const RegisterForm = () => {
                             </div>
                             <div className="mb-4">
                                 <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="email">
-                                    Email
+                                    Company Name
                                 </label>
                                 <input
                                     className={`w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border  rounded shadow appearance-none focus:outline-none focus:shadow-outline`}
                                     type="text"
-                                    placeholder="Email"
+                                    placeholder="Company Name"
                                     name='companyName'
                                     value={values.companyName}
                                     onChange={handleChange}
@@ -214,7 +216,7 @@ export const RegisterForm = () => {
                             {/* Register Button */}
                             <div className="mb-6 text-center">
                                 <button
-                                    className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                                    className="w-full px-4 py-2 font-bold text-white bg-red-500 rounded-full hover:bg-red-700 focus:outline-none focus:shadow-outline"
                                     type="submit"
                                 >
                                     Register Account
@@ -232,9 +234,8 @@ export const RegisterForm = () => {
                             <div className="text-center">
                                 <a
                                     className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                                    href="./index.html"
                                 >
-                                    Already have an account? Login!
+                                    Already have an account? <Link href={'/login'}>Login!</Link>
                                 </a>
                             </div>
                         </form>

@@ -1,4 +1,5 @@
 module.exports = {
+
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
@@ -8,10 +9,10 @@ module.exports = {
     extend: {
       fontFamily: {
         poppins: ['Poppins', 'sans-serif']
-      }
+      },
     },
   },
   plugins: [
-    require('@themesberg/flowbite/plugin')
+    require('@themesberg/flowbite/plugin'),
   ],
 }

@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import { Toaster } from 'react-hot-toast'
 function MyApp({ Component, pageProps }: AppProps) {
 
   return <>
@@ -12,6 +13,13 @@ function MyApp({ Component, pageProps }: AppProps) {
         crossOrigin="anonymous"
       />
     </Head>
+    <Toaster
+      position='top-center'
+      gutter={8}
+      toastOptions={
+        { success: { duration: 3000, } }
+      }
+    />
     <Component {...pageProps} />
   </>
 }
