@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from 'react'
 import { Layout } from '../layout'
 import { Loader } from '../layout/Loader'
 import { useRouter } from 'next/router'
+import { Sidebar } from './Sidebar'
 
 interface IProps {
     pageTitle: string;
@@ -26,7 +27,16 @@ export const SellerLayout: React.FC<IProps> = ({ children, pageTitle, token }) =
 
     return (
         <Layout pageTitle={pageTitle}>
-            {children}
+            <div className='h-auto my-3'>
+                <div className="grid px-5 grid-cols-10">
+                    <div className='col-span-3'>
+                        <Sidebar />
+                    </div>
+                    <div className='col-span-7'>
+                        {children}
+                    </div>
+                </div>
+            </div>
         </Layout>
     )
 }

@@ -5,16 +5,16 @@ import { GetServerSideProps } from 'next'
 import { IPageProps } from '../../utils/types'
 
 
-const DashboardPage = ({ token }: IPageProps) => {
+const NewListingPage = ({ token }: IPageProps) => {
 
     return (
         <SellerLayout token={token} pageTitle='Welcome To Dashboard'>
-            Dashboard
+            New Listing Page
         </SellerLayout>
     )
 }
 
-export default DashboardPage
+export default NewListingPage
 
 export const getServerSideProps: GetServerSideProps = gssp(async (ctx: any) => {
     const token = ctx.token
