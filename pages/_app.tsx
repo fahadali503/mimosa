@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { Toaster } from 'react-hot-toast'
+import { AuthProvider } from '../context/AuthContext'
 function MyApp({ Component, pageProps }: AppProps) {
 
   return <>
@@ -20,7 +21,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         { success: { duration: 3000, } }
       }
     />
-    <Component {...pageProps} />
+    <AuthProvider>
+      <Component {...pageProps} />
+    </AuthProvider>
   </>
 }
 

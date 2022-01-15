@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Layout } from '../components/layout';
 import { H6 } from '../components/headings/H6';
 import { Formik } from 'formik';
@@ -6,6 +6,10 @@ import * as Yup from 'yup';
 import Link from 'next/link';
 import axios, { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
+import { IAuth, ILoginResponse } from '../utils/types';
+import { saveUserToLocalStorage } from '../src/localStorage';
+import { AuthContext } from '../context/AuthContext';
+import { useRouter } from 'next/router';
 
 const SignInSchema = Yup.object().shape({
     email: Yup.string().email().required("Required"),
@@ -19,11 +23,22 @@ type Values = {
 }
 
 const LoginPage = () => {
+    const router = useRouter();
 
+    const { setUser } = useContext(AuthContext);
     const onSubmitHandler = async (values: Values) => {
+        const { redirectTo } = router.query;
         try {
+
             const res = await axios.post('/api/login', values);
-            console.log(res.data);
+            const data = res.data as ILoginResponse
+            saveUserToLocalStorage(data.token, data.user);
+            setUser(data.token, data.user);
+            if (redirectTo) {
+                return router.push(decodeURIComponent(redirectTo as string))
+            } else {
+                return router.push('/seller/dashboard')
+            }
         } catch (error) {
             const err = error as AxiosError
             toast.error(err.response?.data.error)
