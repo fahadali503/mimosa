@@ -2,8 +2,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import React, { createContext, useEffect, useState } from 'react'
 import { getUserFromLocalStorage, removerUserFromLocalStorage } from '../src/localStorage'
-import { IAuth, IUser } from '../utils/types'
-import { isEmpty } from 'lodash';
+import { IAuth, IUser } from '../utils/types';
 
 type TAuthContext = {
     state: IAuth;
@@ -25,6 +24,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     const [loading, setLoading] = useState(false);
     const router = useRouter()
     const auth = getUserFromLocalStorage()
+
     useEffect(() => {
         setLoading(true)
         isUserLoggedIn()
@@ -38,10 +38,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     const logoutUser = () => {
         removerUserFromLocalStorage()
         setState({ token: null, user: null })
-        axios.get('/api/logout')
-        router.push('/login')
     }
-
 
     const isUserLoggedIn = async () => {
         const res = await axios.get('/api/auth');

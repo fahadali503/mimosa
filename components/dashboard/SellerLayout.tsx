@@ -1,26 +1,24 @@
 import { AuthContext } from '../../context/AuthContext'
 import React, { useContext, useEffect } from 'react'
-import { Layout } from '.'
-import { Loader } from './Loader'
+import { Layout } from '../layout'
+import { Loader } from '../layout/Loader'
 import { useRouter } from 'next/router'
-import { getUserFromLocalStorage } from '../../src/localStorage'
-import { isEmpty } from 'lodash'
 
 interface IProps {
     pageTitle: string;
+    token: string
 }
 
 
-export const SellerLayout: React.FC<IProps> = ({ children, pageTitle }) => {
-    const { loading, state } = useContext(AuthContext)
+export const SellerLayout: React.FC<IProps> = ({ children, pageTitle, token }) => {
+    const { loading } = useContext(AuthContext)
     const router = useRouter()
 
     useEffect(() => {
-        const jwt = getUserFromLocalStorage()
-        if (isEmpty(jwt)) {
+        if (!token) {
             router.push({ pathname: '/login', query: { redirectTo: router.asPath } })
         }
-    }, [router])
+    }, [router, token])
 
     if (loading) {
         return <Loader />

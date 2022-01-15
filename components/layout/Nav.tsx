@@ -5,6 +5,7 @@ import { BiShoppingBag, BiSearch, } from 'react-icons/bi'
 import { useTimeoutFn, useWindowScroll } from 'react-use'
 import { NavDropdown } from '../../components/dropdown/NavDropdown'
 import { Transition } from '@headlessui/react';
+import Link from 'next/link'
 
 export const logo = "https://template.hasthemes.com/mimosa/mimosa/img/logo/1.png"
 export const Nav = () => {
@@ -13,11 +14,14 @@ export const Nav = () => {
     const { x, y } = useWindowScroll();
 
 
+
     return (
-        <div ref={scrollRef} className='h-20 w-full fixed top-0 left-0 right-0  font-poppins font-semibold cursor-pointer text-black bg-transparent border z-30' style={{ backgroundColor: `${y > 20 && "rgba(255,255,255,0.9)"}` }}>
+        <div ref={scrollRef} className='h-20 w-full fixed top-0 left-0 right-0  font-poppins font-semibold cursor-pointer text-black bg-transparent border z-30' style={{ backgroundColor: `${y > 20 && "rgba(255,255,255,0.9)"}`, zIndex: 100 }}>
             <div className='grid grid-cols-3 px-20 justify-center items-center h-full'>
                 <div>
-                    <img src={logo} alt="logo" />
+                    <Link href={'/'} passHref>
+                        <img src={logo} alt="logo" />
+                    </Link>
                 </div>
                 <div className='flex text-sm font-medium list-none justify-between'>
                     <li className=' hover:text-red-500'>Home</li>

@@ -21,3 +21,7 @@ export interface ILoginResponse {
     user: IUser
 }
 
+
+export interface IPageProps {
+    token: string
+}
