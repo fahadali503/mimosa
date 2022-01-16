@@ -15,7 +15,7 @@ export const Sidebar = () => {
         router.push('/login')
     }
     return (
-        <div className="flex shadow-lg flex-col h-full p-3 w-60 bg-coolGray-50 text-coolGray-800">
+        <div className="flex shadow-lg flex-col  p-3 w-60 bg-coolGray-50 text-coolGray-800">
             <div className="space-y-3">
                 <div className="relative">
                     <span className="absolute inset-y-0 left-0 flex items-center py-4">

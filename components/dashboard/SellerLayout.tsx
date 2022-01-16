@@ -29,10 +29,10 @@ export const SellerLayout: React.FC<IProps> = ({ children, pageTitle, token }) =
         <Layout pageTitle={pageTitle}>
             <div className='h-auto my-3'>
                 <div className="grid px-5 grid-cols-10">
-                    <div className='col-span-3'>
+                    <div className='col-span-2'>
                         <Sidebar />
                     </div>
-                    <div className='col-span-7'>
+                    <div className='col-span-8'>
                         {children}
                     </div>
                 </div>

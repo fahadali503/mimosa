@@ -13,6 +13,8 @@ module.exports = {
     },
   },
   plugins: [
-    require('@themesberg/flowbite/plugin'),
+    // require('@themesberg/flowbite/plugin'),
+    require('daisyui'),
+    require('tw-elements/dist/plugin')
   ],
 }
