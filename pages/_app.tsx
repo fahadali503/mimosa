@@ -3,6 +3,10 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { Toaster } from 'react-hot-toast'
 import { AuthProvider } from '../context/AuthContext'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+
 function MyApp({ Component, pageProps }: AppProps) {
 
   return <>

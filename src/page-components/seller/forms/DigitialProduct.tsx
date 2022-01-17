@@ -5,7 +5,7 @@ const DigitialProductForm = () => {
         <div>
             <div className='grid grid-cols-2'>
                 <div>
-                    Create New Digital Product
+                    This feature is not available
                 </div>
                 <div></div>
             </div>

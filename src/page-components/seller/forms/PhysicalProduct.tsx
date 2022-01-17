@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 
 
 interface IProps {
-    savePhysicalProductOnServer: (formData: FormData, values: { title: string, description: string, price: number, isOnSale: boolean, isFeatured: boolean, quantity: number, salePirce: number }) => void
+    savePhysicalProductOnServer: (formData: FormData, values: { title: string, description: string, price: number, isOnSale: boolean, isFeatured: boolean, quantity: number, salePirce: number, images: string[], thumbnail: string }) => void
 }
 
 const PhysicalProductForm = ({ savePhysicalProductOnServer }: IProps) => {
@@ -27,16 +27,15 @@ const PhysicalProductForm = ({ savePhysicalProductOnServer }: IProps) => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         const formData = new FormData();
-        // const images: any[] = []
-        // productImages.forEach((image, i) => images.push(image.file))
         if (productImages.length > 0 && productThumbnail.length > 0 && title && description && productPrice && productSalePrice && productImages) {
-            const thumbnail = productThumbnail[0].file!;
-            formData.append('thumbnail', thumbnail)
+            const thumbnail = productThumbnail[0].dataURL!;
+            const images: any[] = []
             for (let index = 0; index < productImages.length; index++) {
                 const element = productImages[index];
-                formData.append(`images`, element.file!)
+                images.push(element.dataURL)
             }
-            savePhysicalProductOnServer(formData, { description: description, isFeatured: isFeaturedProduct, isOnSale: productOnSale, price: Number(productPrice), quantity: Number(productQuantity), salePirce: Number(productSalePrice), title })
+            console.log(images)
+            savePhysicalProductOnServer(formData, { description: description, isFeatured: isFeaturedProduct, isOnSale: productOnSale, price: Number(productPrice), quantity: Number(productQuantity), salePirce: Number(productSalePrice), title, thumbnail, images })
         } else {
             toast.error("All feilds are required.")
         }

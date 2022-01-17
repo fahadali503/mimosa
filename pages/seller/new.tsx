@@ -6,16 +6,16 @@ import { ICommonServerResponse, IPageProps, IProduct } from '../../utils/types'
 import ProductTypeModel from '../../components/Model/ProductType'
 import DigitialProductForm from '../../src/page-components/seller/forms/DigitialProduct'
 import PhysicalProductForm from '../../src/page-components/seller/forms/PhysicalProduct'
-import { ImageType } from 'react-images-uploading'
 import { createProductOnServer } from '../../src/api/product/create.api'
 import toast from 'react-hot-toast'
 import { invalidTokenOrError } from '../../utils/errors'
+import { useRouter } from 'next/router'
 
 
 const NewListingPage = ({ token }: IPageProps) => {
     const [showProductTypeModel, setShowProductTypeModel] = useState(true);
     const [productType, setProductType] = useState('');
-
+    const router = useRouter()
 
 
     const handleSelectProductType = (type: string) => {
@@ -32,9 +32,8 @@ const NewListingPage = ({ token }: IPageProps) => {
             toast.error(invalidTokenError || error)
         } else {
             toast.success(data.message)
+            // router.push('/seller/dashboard')
         }
-
-
     }
 
     return (
