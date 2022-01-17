@@ -3,32 +3,43 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import ImageUploading, { ImageListType, ImageType } from 'react-images-uploading';
 import { AiOutlineClose, AiOutlineCloudUpload } from 'react-icons/ai'
+import toast from 'react-hot-toast';
 
-const PhysicalProductForm = () => {
-    const [productImages, setProductImages] = useState([]);
-    const [productThumbnail, setProductThumbnail] = useState([])
+
+
+interface IProps {
+    savePhysicalProductOnServer: (formData: FormData, values: { title: string, description: string, price: number, isOnSale: boolean, isFeatured: boolean, quantity: number, salePirce: number }) => void
+}
+
+const PhysicalProductForm = ({ savePhysicalProductOnServer }: IProps) => {
+    const [productImages, setProductImages] = useState<ImageListType>([]);
+    const [productThumbnail, setProductThumbnail] = useState<ImageListType>([])
     const [productOnSale, setProductOnSale] = useState(false);
     const [isFeaturedProduct, setIsFeaturedProduct] = useState(false);
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
-    const [productSalePrice, setProductSalePrice] = useState('');
-    const [productPrice, setProductPrice] = useState('');
-    const [productQuantity, setProductQuantity] = useState('');
+    const [productSalePrice, setProductSalePrice] = useState('0');
+    const [productPrice, setProductPrice] = useState('0');
+    const [productQuantity, setProductQuantity] = useState('0');
 
     const router = useRouter();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        console.log(productImages);
-        console.log(productThumbnail);
-        console.log(productOnSale);
-        console.log(isFeaturedProduct);
-        console.log(title);
-        console.log(description);
-        console.log(productSalePrice);
-        console.log(productPrice);
-        console.log(productQuantity);
-
+        const formData = new FormData();
+        // const images: any[] = []
+        // productImages.forEach((image, i) => images.push(image.file))
+        if (productImages.length > 0 && productThumbnail.length > 0 && title && description && productPrice && productSalePrice && productImages) {
+            const thumbnail = productThumbnail[0].file!;
+            formData.append('thumbnail', thumbnail)
+            for (let index = 0; index < productImages.length; index++) {
+                const element = productImages[index];
+                formData.append(`images`, element.file!)
+            }
+            savePhysicalProductOnServer(formData, { description: description, isFeatured: isFeaturedProduct, isOnSale: productOnSale, price: Number(productPrice), quantity: Number(productQuantity), salePirce: Number(productSalePrice), title })
+        } else {
+            toast.error("All feilds are required.")
+        }
     }
 
 
@@ -198,7 +209,6 @@ const PhysicalProductForm = () => {
                     <button type='submit' className='mx-auto border block py-3 px-16 font-bold border-black hover:scale-125 duration-500 hover:border-white hover:bg-black hover:text-white'>Save</button>
                 </div>
             </form>
-
 
         </div>
     )

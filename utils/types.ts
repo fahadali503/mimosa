@@ -1,5 +1,5 @@
 export interface IUser {
-    id: number;
+    id: string;
     email: string;
     firstName: string;
     lastName: string;
@@ -24,4 +24,23 @@ export interface ILoginResponse {
 
 export interface IPageProps {
     token: string
+}
+
+
+
+export interface IProduct {
+    _id: string;
+    title: string;
+    description: string;
+    images: string[];
+    thumbnail: string;
+    type: "physical" | "digital";
+    price: number;
+    salePrice: number;
+    isOnSale: boolean;
+    quantity: number;
+    isFeatured: boolean;
+    user: string;
+    createdAt: Date;
+    updatedAt: Date;
 }
