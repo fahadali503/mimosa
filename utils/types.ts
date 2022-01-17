@@ -44,3 +44,8 @@ export interface IProduct {
     createdAt: Date;
     updatedAt: Date;
 }
+
+
+export interface ICommonServerResponse {
+    message: string
+}
