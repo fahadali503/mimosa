@@ -4,6 +4,7 @@ import { BasicSpinner } from '../../components/spinner/BasicSpinner'
 import React from 'react'
 import { IProduct } from '../../utils/types'
 import { AiFillCheckCircle, AiFillCloseCircle } from 'react-icons/ai'
+import Link from 'next/link'
 
 interface IProps {
     data: ApiResponse<unknown, unknown>;
@@ -53,7 +54,9 @@ export const DisplaySellerProducts = ({ data, isLoading }: IProps) => {
                 </td>
                 <td className='text-center'>{product.isPublished ? <AiFillCheckCircle className='text-green-600 text-center' /> : <AiFillCloseCircle className='text-center text-red-600' />}</td>
                 <th>
-                    <button className="btn btn-ghost btn-xs">details</button>
+                    <Link href={`/seller/product/${product._id}`} passHref>
+                        <button className="btn btn-ghost btn-xs">details</button>
+                    </Link>
                 </th>
             </tr>
 

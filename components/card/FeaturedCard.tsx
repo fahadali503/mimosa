@@ -4,13 +4,14 @@ import React from 'react'
 import { IObjectUnknown, IProduct } from '../../utils/types'
 import { NotFoundCard } from './NotFoundCard'
 import Slider from "react-slick";
+import { useRouter } from 'next/router'
 interface IProps {
     isLoading: boolean;
     data: ApiResponse<unknown, unknown>
 }
 
 export const FeaturedCard = ({ data, isLoading }: IProps) => {
-
+    const router = useRouter()
     const displayProducts = (products: IProduct[]) => {
         return products.map(p => {
             return <div className="py-6 ml-10" key={p._id}>
@@ -58,7 +59,7 @@ export const FeaturedCard = ({ data, isLoading }: IProps) => {
     const res = data.data as IObjectUnknown<IProduct[]>;
     const products = res.products;
     if (products.length === 0 || !products) {
-        return <NotFoundCard titleClassName={"text-red-500"} descriptionClassName='font-medium' title='OOPs!!!' description="Seems like you haven't created product yet or it is not featured." />
+        return <NotFoundCard titleClassName={"text-red-500"} descriptionClassName='font-medium' title='OOPs!!!' btn1Callback={() => router.push('/seller/new')} description="Seems like you haven't created product yet or it is not featured." />
     }
 
     const settings = {
