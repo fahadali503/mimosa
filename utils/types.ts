@@ -43,6 +43,7 @@ export interface IProduct {
     user: string;
     createdAt: Date;
     updatedAt: Date;
+    isPublished: boolean;
 }
 export interface IObjectUnknown<T> {
     [k: string]: T

@@ -7,13 +7,18 @@ import { H6 } from '../../components/headings/H6'
 import { BasicTooltip } from '../../components/tooltip/BasicTooltip'
 import { FeaturedCard } from '../../components/card/FeaturedCard'
 import { useQuery } from 'react-query'
-import { getSellerFeaturedProducts } from '../../src/api/product/seller.api'
+import { getSellerFeaturedProducts, getSellerProducts } from '../../src/api/product/seller.api'
 import { BasicSpinner } from '../../components/spinner/BasicSpinner'
+import { DisplaySellerProducts } from '../../components/table/DisplaySellerProducts'
+import { SellerStats } from '../../components/stats/SellerStats'
 
 
 
 const DashboardPage = ({ token }: IPageProps) => {
     const { data: featured, isLoading: featuredLoading } = useQuery('seller-featured', () => getSellerFeaturedProducts(token))
+
+    const { data: products, isLoading: productsLoading } = useQuery('seller-products', () => getSellerProducts(token))
+
 
     return (
         <SellerLayout token={token} pageTitle='Welcome To Dashboard'>
@@ -25,6 +30,18 @@ const DashboardPage = ({ token }: IPageProps) => {
             <div>
                 {featuredLoading && <BasicSpinner />}
                 <FeaturedCard data={featured!} isLoading={featuredLoading} />
+                <hr />
+                <hr />
+            </div>
+            <hr />
+            <hr />
+            {/* Seller Stats */}
+            <div className='mt-16'>
+                <SellerStats data={products!} isLoading={productsLoading} />
+            </div>
+            {/* Show published products and unpublished products list */}
+            <div className='mt-10'>
+                <DisplaySellerProducts data={products!} isLoading={productsLoading} />
             </div>
         </SellerLayout>
     )
