@@ -1,23 +1,19 @@
 import { SellerLayout } from '../../components/dashboard/SellerLayout'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { gssp } from '../../utils/gssp'
 import { GetServerSideProps } from 'next'
 import { IPageProps } from '../../utils/types'
 import { H6 } from '../../components/headings/H6'
 import { BasicTooltip } from '../../components/tooltip/BasicTooltip'
 import { FeaturedCard } from '../../components/card/FeaturedCard'
-import { API } from '../../src/api'
+import { useQuery } from 'react-query'
+import { getSellerFeaturedProducts } from '../../src/api/product/seller.api'
+import { BasicSpinner } from '../../components/spinner/BasicSpinner'
 
 
 
 const DashboardPage = ({ token }: IPageProps) => {
-
-    useEffect(() => {
-        (async () => {
-            const response = await API.get('/product/featured', {}, { headers: { Authorization: `Bearer ${token}` } });
-            console.log(response.data);
-        })()
-    }, [token])
+    const { data: featured, isLoading: featuredLoading } = useQuery('seller-featured', () => getSellerFeaturedProducts(token))
 
     return (
         <SellerLayout token={token} pageTitle='Welcome To Dashboard'>
@@ -27,7 +23,8 @@ const DashboardPage = ({ token }: IPageProps) => {
             </div>
             {/* Featured Products */}
             <div>
-                <FeaturedCard />
+                {featuredLoading && <BasicSpinner />}
+                <FeaturedCard data={featured!} isLoading={featuredLoading} />
             </div>
         </SellerLayout>
     )

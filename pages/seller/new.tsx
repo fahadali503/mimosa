@@ -32,7 +32,7 @@ const NewListingPage = ({ token }: IPageProps) => {
             toast.error(invalidTokenError || error)
         } else {
             toast.success(data.message)
-            // router.push('/seller/dashboard')
+            router.push('/seller/dashboard')
         }
     }
 

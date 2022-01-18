@@ -44,6 +44,10 @@ export interface IProduct {
     createdAt: Date;
     updatedAt: Date;
 }
+export interface IObjectUnknown<T> {
+    [k: string]: T
+}
+
 
 
 export interface ICommonServerResponse {

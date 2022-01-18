@@ -3,10 +3,13 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { Toaster } from 'react-hot-toast'
 import { AuthProvider } from '../context/AuthContext'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useState } from 'react'
 
 
+const queryClient = new QueryClient();
 function MyApp({ Component, pageProps }: AppProps) {
 
   return <>
@@ -25,9 +28,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         { success: { duration: 3000, } }
       }
     />
-    <AuthProvider>
-      <Component {...pageProps} />
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
+    </QueryClientProvider>
   </>
 }
 
